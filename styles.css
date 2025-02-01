@@ -11,13 +11,35 @@ body{
 	width: 700px;
 }
 
-h2{
-	margin: -30px auto 5px auto;
-	color: rgb(246, 184, 30);
-	font-size: 28px;
-	font-weight: lighter;
-	text-transform: uppercase;
-	text-shadow: 1.5px 1.5px 0 rgba(239,0,0,1.00);;
+/* Styles for Score, Lives, and Time Displays */
+h2 {
+    margin: 10px auto; /* Adjusted margin for spacing */
+    color: rgb(246, 184, 30);
+    font-size: 28px;
+    font-weight: lighter;
+    text-transform: uppercase;
+    text-shadow: 1.5px 1.5px 0 rgba(239, 0, 0, 1);
+    display: inline-block; /* Ensure elements are inline */
+    width: 100%; /* Ensure full width for alignment */
+    text-align: center; /* Center text */
+}
+
+#score, #lives, #time {
+    font-family: 'Bungee', cursive;
+    color: yellow;
+    margin: 5px 0; /* Adjusted margin for spacing */
+    display: inline-block; /* Ensure elements are inline */
+    width: 30%; /* Distribute width evenly */
+    text-align: center; /* Center text */
+}
+
+/* Ensure the container for score, lives, and time is properly aligned */
+.score-lives-time-container {
+    display: flex;
+    justify-content: space-between; /* Space elements evenly */
+    align-items: center; /* Center vertically */
+    width: 100%; /* Full width */
+    margin: 10px 0; /* Add some margin for spacing */
 }
 
 #computer{
@@ -158,6 +180,42 @@ kbd{
 	background-size: 40%;
 	background-repeat: no-repeat;
 	background-position: center
+}
+
+/* Styles for Lives and Time Displays */
+#lives, #time {
+    font-family: 'Bungee', cursive;
+    color: yellow;
+    margin: 10px 0;
+}
+
+/* Pause Menu Styles */
+.pause-menu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 1000;
+}
+
+.pause-menu button {
+    background-color: yellow;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    font-family: 'Bungee', cursive;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.pause-menu button:hover {
+    background-color: #ffcc00;
 }
 
 @-webkit-keyframes eat{
