@@ -141,8 +141,74 @@ document.getElementById("play").addEventListener("click", function game() {
             checkForWin();
         }
     }
+    let desiredDirection = null; // Store the desired direction
+let lastMoveTime = 0; // Track the last time Pac-Man moved
+const PACMAN_SPEED = 150; // Time in milliseconds between movements (reduce this value to increase speed)
 
-    document.addEventListener("keydown", movePacman);
+function updatePacman(deltaTime) {
+    if (!desiredDirection) return; // No movement if no desired direction
+
+    const currentTime = Date.now(); // Get current timestamp
+    if (currentTime - lastMoveTime < PACMAN_SPEED) {
+        return; // Wait until enough time has passed since the last move
+    }
+
+    lastMoveTime = currentTime; // Update the last move time
+
+    const nextIndex = pacmanCurrentIndex + desiredDirection.delta;
+
+    // Check boundaries and obstacles
+    if (
+        (nextIndex >= 0 && nextIndex < squares.length) && // Within grid bounds
+        !squares[nextIndex].classList.contains("wall") &&
+        !squares[nextIndex].classList.contains("ghost-lair")
+    ) {
+        // Handle edge wrapping
+        let newPacmanIndex = nextIndex;
+        if (pacmanCurrentIndex === 363 && desiredDirection.wrap === 363) {
+            newPacmanIndex = 391;
+        } else if (pacmanCurrentIndex === 391 && desiredDirection.wrapTo === 363) {
+            newPacmanIndex = 363;
+        } else if (pacmanCurrentIndex === 392 && desiredDirection.wrap === 392) {
+            newPacmanIndex = 364;
+        } else if (pacmanCurrentIndex === 364 && desiredDirection.wrapTo === 392) {
+            newPacmanIndex = 392;
+        }
+
+        // Remove Pac-Man from the current position
+        squares[pacmanCurrentIndex].classList.remove("pac-man");
+
+        // Update Pac-Man's position
+        pacmanCurrentIndex = newPacmanIndex;
+        squares[pacmanCurrentIndex].classList.add("pac-man");
+        squares[pacmanCurrentIndex].style.transform = desiredDirection.transform;
+
+        // Perform game logic
+        pacDotEaten();
+        powerPelletEaten();
+        checkForGameOver();
+        checkForWin();
+    }
+}
+    document.addEventListener("keydown", (e) => {
+        if (!gameRunning) return; // Do not process input if the game is paused
+
+        const directions = {
+            37: { delta: -1, transform: "scaleX(-1) rotate(95deg)", wrap: 363, wrapTo: 391 }, // Left
+            38: { delta: -width, transform: "scaleY(1)" }, // Up
+            39: { delta: +1, transform: "scaleY(1) rotate(95deg)", wrap: 392, wrapTo: 364 }, // Right
+            40: { delta: +width, transform: "rotate(190deg)" } // Down
+        };
+
+        const direction = directions[e.keyCode];
+        if (direction) {
+            desiredDirection = direction; // Set the desired direction
+        }
+    });
+    
+    document.addEventListener("keyup", () => {
+        desiredDirection = null; // Clear the desired direction when the key is released
+    });
 
     
     // When Pac-Man eats a Pac-Dot
@@ -376,6 +442,10 @@ document.getElementById("play").addEventListener("click", function game() {
         const deltaTime = Math.min(currentTime - lastFrameTime, 100); // Cap deltaTime
         lastFrameTime = currentTime;
        
+        // Update Pac-Man
+       updatePacman(deltaTime);
+
+        // Update ghosts
         requestAnimationFrame(gameLoop);
     }
     // Initialize the game loop
