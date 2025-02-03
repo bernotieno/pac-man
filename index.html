@@ -9,8 +9,7 @@
 	</head>
 
 	<body>
-		<button id="play" onClick="document.getElementById('play').style.display = 'none'; document.getElementById('h2bestScore').style.display = 'block'; document.getElementById('footer').style.display = 'none'; document.getElementById('mobile').style.display = 'none'">Click here to play</button>
-		<script src="script.js" charset="utf-8"></script>
+		<button id="play">Click here to play</button>
 		<img src="https://upload.wikimedia.org/wikipedia/fr/thumb/a/a2/Pac-Man_Logo.svg/langfr-1920px-Pac-Man_Logo.svg.png" alt="Logo Pac-Man" id="logo">
 		<div class="score-lives-time-container">
 			<h2>Score: <span id="score">0</span></h2>
@@ -22,5 +21,19 @@
 		<div class="grid"></div>
 		<h2 id="h2bestScore" style="display: none">Your best score : <span id="bestScore">0</span></h2>
 		<footer id="footer">PAC-MAN™ & ©1980 BANDAI NAMCO Entertainment Inc.</footer>
+
+		<script type="module">
+			import { Game } from './scripts/game.js';
+
+			document.getElementById('play').addEventListener('click', function() {
+				this.style.display = 'none';
+				document.getElementById('h2bestScore').style.display = 'block';
+				document.getElementById('footer').style.display = 'none';
+				document.getElementById('mobile').style.display = 'none';
+
+				const game = new Game();
+				game.start();
+			});
+		</script>
 	</body>
 </html>
