@@ -1,0 +1,58 @@
+/* Pac-Man Rotation Styles */
+.pac-man {
+    transform: rotate(0deg);
+    transition: transform 0.05s ease-out;
+    border-radius: 50%;
+    background-color: yellow;
+    border: none;
+}
+
+.pac-man.rotate-left {
+    transform: rotate(180deg) !important;
+}
+
+.pac-man.rotate-right {
+    transform: rotate(0deg) !important;
+}
+
+.pac-man.rotate-up {
+    transform: rotate(-90deg) !important;
+}
+
+.pac-man.rotate-down {
+    transform: rotate(90deg) !important;
+}
+
+.pac-man::before, .pac-man::after {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 10px;
+    height: 10px;
+}
+
+.pac-man::before {
+    border-radius: 50px 0 0 0;
+    background-color: rgba(10,7,67,1.00);
+    border-color: rgba(10,7,67,1.00);
+}
+
+.pac-man::after {
+    border-radius: 50px 0 0 0;
+    background-color: yellow;
+    transform-origin: bottom right;
+    transform: rotate(-45deg);
+    animation: eat 0.35s infinite;
+}
+
+@keyframes eat {
+    0% {
+        transform: rotate(-45deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-45deg);
+    }
+} 
