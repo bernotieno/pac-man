@@ -93,22 +93,28 @@ export class Game {
 
     update(currentTime) {
         if (this.gameOver || this.isPaused) return;
-
+    
         const deltaTime = currentTime - this.lastTime;
         this.lastTime = currentTime;
-
+    
+        const pacmanIndex = this.pacman.getCurrentIndex(); // Get Pac-Man's current position
+    
         this.pacman.move(deltaTime);
-        this.ghosts.forEach(ghost => ghost.move(deltaTime));
+        this.ghosts.forEach(ghost => {
+            ghost.move(deltaTime, pacmanIndex); // Pass Pac-Man's index to each ghost
+        });
+    
         this.checkCollision();
         this.ui.updateTime();
-        
+    
         if (this.checkWin()) {
             console.log('You won!');
             return;
         }
-
+    
         requestAnimationFrame(this.update.bind(this));
     }
+    
 
     start() {
         requestAnimationFrame(this.update.bind(this));

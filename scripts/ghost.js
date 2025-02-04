@@ -59,46 +59,57 @@ export class Ghost {
         return directions.filter(direction => this.isValidDirection(direction));
     }
 
-    move(deltaTime) {
+    move(deltaTime, pacmanIndex) {
         this.timeSinceLastMove += deltaTime;
         if (this.timeSinceLastMove < this.speed) return;
-
+    
         this.timeSinceLastMove = 0;
-
-        // Remove current ghost appearance
+    
+        // Remove ghost appearance at the current position
         this.squares[this.currentIndex].classList.remove(this.className);
         this.squares[this.currentIndex].classList.remove('scared-ghost');
-
+    
         const validDirections = this.getValidDirections();
-        
+    
         if (validDirections.length > 0) {
             let newDirection;
-
-            // Try to maintain current direction if possible
-            if (validDirections.includes(this.direction)) {
-                newDirection = this.direction;
+    
+            // Blinky's movement optimization
+            if (this.className === 'blinky') {
+                const targetIndex = this.calculateBlinkyTarget(pacmanIndex);
+    
+                // Find the direction that minimizes the distance to Pac-Man
+                newDirection = validDirections.reduce((bestDirection, direction) => {
+                    const nextIndex = this.currentIndex + direction;
+                    const bestDistance = Math.abs(targetIndex % GRID_SIZE - (this.currentIndex % GRID_SIZE + bestDirection % GRID_SIZE)) +
+                                         Math.abs(Math.floor(targetIndex / GRID_SIZE) - Math.floor((this.currentIndex + bestDirection) / GRID_SIZE));
+                    const newDistance = Math.abs(targetIndex % GRID_SIZE - nextIndex % GRID_SIZE) +
+                                        Math.abs(Math.floor(targetIndex / GRID_SIZE) - Math.floor(nextIndex / GRID_SIZE));
+    
+                    return newDistance < bestDistance ? direction : bestDirection;
+                }, validDirections[0]);
             } else {
-                // Filter out the opposite direction to prevent back-and-forth movement
+                // Default movement logic for other ghosts
                 const oppositeDirection = -this.direction;
                 const forwardDirections = validDirections.filter(d => d !== oppositeDirection);
-                
-                // If we can only go back, then do so
-                newDirection = forwardDirections.length > 0 ? 
-                    forwardDirections[Math.floor(Math.random() * forwardDirections.length)] :
-                    validDirections[Math.floor(Math.random() * validDirections.length)];
+                newDirection = forwardDirections.length > 0
+                    ? forwardDirections[Math.floor(Math.random() * forwardDirections.length)]
+                    : validDirections[Math.floor(Math.random() * validDirections.length)];
             }
-
+    
             this.previousIndex = this.currentIndex;
             this.currentIndex += newDirection;
             this.direction = newDirection;
         }
-
-        // Add ghost appearance at new position
+    
+        // Add ghost appearance at the new position
         this.squares[this.currentIndex].classList.add(this.className);
         if (this.isScared) {
             this.squares[this.currentIndex].classList.add('scared-ghost');
         }
     }
+    
+    
 
     setScared(scared) {
         this.isScared = scared;
@@ -112,6 +123,11 @@ export class Ghost {
     getCurrentIndex() {
         return this.currentIndex;
     }
+
+    calculateBlinkyTarget(pacmanIndex) {
+        return pacmanIndex; // Blinky's target is always Pac-Man's current index
+    }
+    
 
     reset() {
         this.squares[this.currentIndex].classList.remove(this.className);
