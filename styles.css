@@ -153,7 +153,7 @@ kbd{
 	background-color: yellow;
 	border-radius: 10px;
 	border: none;
-	transform: rotate(115deg);
+	/* transform: rotate(115deg); */
 }
 
 .pac-man::before, .pac-man::after{
