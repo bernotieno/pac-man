@@ -1,8 +1,11 @@
 import { Board } from './board.js';
 import { Pacman } from './pacman.js';
-import { Ghost } from './ghost.js';
+import { Blinky } from './blinky.js';
+// import { Pinky } from './pinky.js';
+// import { Inky } from './inky.js';
+// import { Clyde } from './clyde.js';
 import { UI } from './ui.js';
-import { POWER_PELLET_TIME, GRID_SIZE } from './utils.js';
+import { POWER_PELLET_TIME } from './utils.js';
 
 export class Game {
     constructor() {
@@ -10,10 +13,10 @@ export class Game {
         this.ui = new UI();
         this.pacman = new Pacman(490, this.board);
         this.ghosts = [
-            new Ghost('blinky', 348, 250, this.board),
-            new Ghost('pinky', 376, 400, this.board),
-            new Ghost('inky', 351, 300, this.board),
-            new Ghost('clyde', 379, 500, this.board)
+            new Blinky(348, 250, this.board),
+            // new Pinky(376, 400, this.board),
+            // new Inky(351, 300, this.board),
+            // new Clyde(379, 500, this.board)
         ];
         this.gameOver = false;
         this.powerPelletActive = false;
@@ -39,7 +42,7 @@ export class Game {
 
     checkCollision() {
         const pacmanIndex = this.pacman.getCurrentIndex();
-        
+
         // Check for pac-dot collision
         if (this.board.getSquares()[pacmanIndex].classList.contains('pac-dot')) {
             this.board.removePacDot(pacmanIndex);
@@ -52,7 +55,7 @@ export class Game {
             this.ui.updateScore(50);
             this.powerPelletActive = true;
             this.ghosts.forEach(ghost => ghost.setScared(true));
-            
+
             if (this.powerPelletTimer) clearTimeout(this.powerPelletTimer);
             this.powerPelletTimer = setTimeout(() => {
                 this.powerPelletActive = false;
@@ -93,30 +96,29 @@ export class Game {
 
     update(currentTime) {
         if (this.gameOver || this.isPaused) return;
-    
+
         const deltaTime = currentTime - this.lastTime;
         this.lastTime = currentTime;
-    
-        const pacmanIndex = this.pacman.getCurrentIndex(); // Get Pac-Man's current position
-    
+
+        const pacmanIndex = this.pacman.getCurrentIndex();
+
         this.pacman.move(deltaTime);
         this.ghosts.forEach(ghost => {
-            ghost.move(deltaTime, pacmanIndex); // Pass Pac-Man's index to each ghost
+            ghost.move(deltaTime, pacmanIndex);
         });
-    
+
         this.checkCollision();
         this.ui.updateTime();
-    
+
         if (this.checkWin()) {
             console.log('You won!');
             return;
         }
-    
+
         requestAnimationFrame(this.update.bind(this));
     }
-    
 
     start() {
         requestAnimationFrame(this.update.bind(this));
     }
-} 
+}
