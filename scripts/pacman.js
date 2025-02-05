@@ -136,4 +136,15 @@ export class Pacman {
         this.squares[this.currentIndex].classList.add('pac-man');
         this.updateRotation();
     }
+
+    getCurrentDirection() {
+        // Convert numeric direction to string format that Pinky expects
+        switch(this.direction) {
+            case -1: return 'LEFT';
+            case 1: return 'RIGHT';
+            case -this.board.width: return 'UP';
+            case this.board.width: return 'DOWN';
+            default: return 'RIGHT'; // default direction
+        }
+    }
 } 

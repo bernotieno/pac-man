@@ -13,6 +13,8 @@ export class Ghost {
         this.direction = -1;
         this.squares[startIndex].classList.add(className);
         this.previousIndex = startIndex;
+        this.width = GRID_SIZE;
+        this.height = GRID_SIZE;
     }
 
     isWall(index) {
