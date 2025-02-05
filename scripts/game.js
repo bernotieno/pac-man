@@ -1,9 +1,9 @@
 import { Board } from './board.js';
 import { Pacman } from './pacman.js';
 import { Blinky } from './blinky.js';
-// import { Pinky } from './pinky.js';
-// import { Inky } from './inky.js';
-// import { Clyde } from './clyde.js';
+import { Pinky } from './pinky.js';
+import { Inky } from './inky.js';
+import { Clyde } from './clyde.js';
 import { UI } from './ui.js';
 import { POWER_PELLET_TIME } from './utils.js';
 
@@ -14,9 +14,9 @@ export class Game {
         this.pacman = new Pacman(490, this.board);
         this.ghosts = [
             new Blinky(348, 250, this.board),
-            // new Pinky(376, 400, this.board),
-            // new Inky(351, 300, this.board),
-            // new Clyde(379, 500, this.board)
+            new Pinky(376, 400, this.board),
+            new Inky(351, 300, this.board),
+            new Clyde(379, 500, this.board)
         ];
         this.gameOver = false;
         this.powerPelletActive = false;
