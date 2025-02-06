@@ -266,23 +266,30 @@ kbd{
 	z-index: 100;
 	display: flex;
 	justify-content: center;
+	display: none;
+	/* background-color: chartreuse; */
+	padding-left: 120px;
+	padding-right: 0px;
 }
 
-.gameOver::after{
+/* .gameOver::after{
 	content: "GAME OVER";
 	position: absolute;
-}
+} */
 
 .won::after{
 	content: "YOU WON !";
 	position: absolute;
 }
+/* .gameOver{
+	display: none;
+} */
 
 .restart{
 	position: absolute;
 	width : 150px;
 	height: 40px;
-	margin-top: 100px;
+	/* margin-top: 100px; */
 	background-color: rgba(10,7,67,1.00);
 	border: 2px solid rgba(239,0,0,1.00);
 	border-radius: 5px;
@@ -296,16 +303,17 @@ kbd{
 	letter-spacing: 1.5px;
 	color: rgb(246, 184, 30);
 	text-shadow: 1px 1px 0 rgba(239,0,0,1.00); 
+	margin-left: 40px;
 }
 
 .restart:hover{
 	transform: scale(1.1);
 }
 
-.restart::after{
+/* .restart::after{
 	content: "RESTART";
 	position : absolute;
-}
+} */
 
 footer{
 	color : rgba(175,255,228,1.00);
