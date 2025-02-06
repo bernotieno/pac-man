@@ -87,10 +87,19 @@ export class Game {
     }
 
     checkWin() {
-        if (this.board.checkWin()) {
+        if (this.ui.lives <= 0) {
             this.gameOver = true;
+            this.ui.displayGameStatus('GAME OVER');
             return true;
         }
+        
+        // Check if all pellets are eaten
+        if (this.board.checkWin()) {
+            this.gameOver = true;
+            this.ui.displayGameStatus('YOU WON!');
+            return true;
+        }
+        
         return false;
     }
 
