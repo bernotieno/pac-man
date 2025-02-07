@@ -36,9 +36,12 @@ export class Game {
     togglePause() {
         this.isPaused = !this.isPaused;
         if (this.isPaused) {
-            this.ui.createPauseMenu();
+            this.ui.createPauseMenu(this);
+        } else {
+            requestAnimationFrame(this.update.bind(this)); // Resume game loop
         }
     }
+    
 
     checkCollision() {
         const pacmanIndex = this.pacman.getCurrentIndex();
@@ -104,28 +107,29 @@ export class Game {
     }
 
     update(currentTime) {
-        if (this.gameOver || this.isPaused) return;
-
         const deltaTime = currentTime - this.lastTime;
         this.lastTime = currentTime;
-
-        const pacmanIndex = this.pacman.getCurrentIndex();
-
-        this.pacman.move(deltaTime);
-        this.ghosts.forEach(ghost => {
-            ghost.move(deltaTime, pacmanIndex);
-        });
-
-        this.checkCollision();
-        this.ui.updateTime();
-
-        if (this.checkWin()) {
-            console.log('You won!');
-            return;
+    
+        if (!this.isPaused && !this.gameOver) {
+            const pacmanIndex = this.pacman.getCurrentIndex();
+    
+            this.pacman.move(deltaTime);
+            this.ghosts.forEach(ghost => {
+                ghost.move(deltaTime, pacmanIndex);
+            });
+    
+            this.checkCollision();
+            this.ui.updateTime();
+    
+            if (this.checkWin()) {
+                console.log('You won!');
+                return;
+            }
         }
-
-        requestAnimationFrame(this.update.bind(this));
+    
+        requestAnimationFrame(this.update.bind(this)); // Keep running regardless of pause state
     }
+    
 
     start() {
         requestAnimationFrame(this.update.bind(this));

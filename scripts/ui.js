@@ -54,28 +54,28 @@ export class UI {
         }
     }
 
-    createPauseMenu() {
+    createPauseMenu(gameInstance) {
         const pauseMenu = document.createElement('div');
         pauseMenu.className = 'pause-menu';
-        
+    
         const resumeButton = document.createElement('button');
         resumeButton.textContent = 'Resume';
         resumeButton.onclick = () => {
             document.body.removeChild(pauseMenu);
-            return false;
+            gameInstance.togglePause(); // Resume game
         };
-        
+    
         const restartButton = document.createElement('button');
         restartButton.textContent = 'Restart';
         restartButton.onclick = () => {
             location.reload();
-            return false;
         };
-        
+    
         pauseMenu.appendChild(resumeButton);
         pauseMenu.appendChild(restartButton);
         document.body.appendChild(pauseMenu);
     }
+    
 
     reset() {
         this.score = 0;
