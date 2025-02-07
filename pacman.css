@@ -1,6 +1,6 @@
 /* Pac-Man Rotation Styles */
 .pac-man {
-    transform: rotate(0deg);
+    transform: rotate(90deg);
     transition: transform 0.05s ease-out;
     border-radius: 50%;
     background-color: yellow;
@@ -27,6 +27,8 @@
     position: absolute;
     content: "";
     display: block;
+    /* width: 1.75vw;
+    height: 1.75vw; */
     width: 10px;
     height: 10px;
 }
@@ -38,11 +40,20 @@
 }
 
 .pac-man::after {
-    border-radius: 50px 0 0 0;
-    background-color: yellow;
-    transform-origin: bottom right;
     transform: rotate(-45deg);
     animation: eat 0.35s infinite;
+
+    border-radius : 50px 0 0 0 ;
+	background-color: yellow;
+	transform-origin: bottom right;
+	-webkit-transform: rotate(-90deg);
+	/* transform: rotate(-90deg); */
+	-webkit-animation: eat .5s infinite;
+	/* animation: eat .5s infinite; */
+	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE4LjEuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMjkuMTA3IDI5LjEwNyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjkuMTA3IDI5LjEwNzsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGcgaWQ9ImMxNDdfZnVsbF9tb29uIj4NCgkJPGc+DQoJCQk8cGF0aCBkPSJNMTQuNTU0LDBDNi41NjEsMCwwLDYuNTYyLDAsMTQuNTUyYzAsNy45OTYsNi41NjEsMTQuNTU1LDE0LjU1NCwxNC41NTVjNy45OTYsMCwxNC41NTMtNi41NTksMTQuNTUzLTE0LjU1NQ0KCQkJCUMyOS4xMDYsNi41NjIsMjIuNTUsMCwxNC41NTQsMHoiLz4NCgkJPC9nPg0KCTwvZz4NCgk8ZyBpZD0iQ2FwYV8xXzE0XyI+DQoJPC9nPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPC9zdmc+DQo=);
+	background-size: 40%;
+	background-repeat: no-repeat;
+	background-position: center
 }
 
 @keyframes eat {
