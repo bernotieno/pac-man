@@ -24,13 +24,23 @@ export class Game {
         this.lastTime = 0;
         this.isPaused = false;
 
+        // document.addEventListener('keydown', (e) => {
+        //     if (e.key === 'Escape') {
+        //         this.togglePause();
+        //     } else {
+        //         this.pacman.setDirection(e);
+        //     }
+        // });
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 this.togglePause();
+            } else if ((e.key === 'Enter') || (e.key === 'Enter' && this.gameOver))  {
+                location.reload(); // Restart the game
             } else {
                 this.pacman.setDirection(e);
             }
         });
+        
     }
 
     togglePause() {
@@ -38,7 +48,16 @@ export class Game {
         if (this.isPaused) {
             this.ui.createPauseMenu(this);
         } else {
+            this.ui.createPauseMenu(this); // This will remove the pause menu
             requestAnimationFrame(this.update.bind(this)); // Resume game loop
+        }
+    }
+
+    restartGame() {
+        if (this.gameOver || this.isPaused) {
+            // Restart game when paused or game over
+            this.resetGame();
+            this.start();
         }
     }
     
@@ -129,7 +148,6 @@ export class Game {
     
         requestAnimationFrame(this.update.bind(this)); // Keep running regardless of pause state
     }
-    
 
     start() {
         requestAnimationFrame(this.update.bind(this));
