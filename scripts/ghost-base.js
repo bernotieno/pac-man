@@ -25,31 +25,31 @@ export class Ghost {
 
     isValidDirection(direction) {
         const nextIndex = this.currentIndex + direction;
-        
+    
         if (nextIndex < 0 || nextIndex >= this.squares.length) return false;
         if (this.isWall(nextIndex)) return false;
-        if (this.squares[nextIndex].classList.contains('ghost') && !this.isGhostLair(nextIndex)) return false;
         
-        if (direction === -1 || direction === 1) {
-            const currentRow = Math.floor(this.currentIndex / GRID_SIZE);
-            const nextRow = Math.floor(nextIndex / GRID_SIZE);
-            if (currentRow !== nextRow) return false;
-        }
-        
-        if (direction === -GRID_SIZE || direction === GRID_SIZE) {
-            const currentCol = this.currentIndex % GRID_SIZE;
-            const nextCol = nextIndex % GRID_SIZE;
-            if (currentCol !== nextCol) return false;
-        }
-
+        // Prevent ghosts from moving into each other
+        if (this.squares[nextIndex].classList.contains('ghost') || this.squares[nextIndex].classList.contains('reserved')) return false;
+    
         return true;
     }
+    
 
     getValidDirections() {
         const directions = [-1, 1, -GRID_SIZE, GRID_SIZE];
-        return directions.filter(direction => this.isValidDirection(direction));
+        let valid = directions.filter(direction => this.isValidDirection(direction));
+    
+        // Avoid moving toward another ghost if possible
+        valid = valid.filter(direction => {
+            const nextIndex = this.currentIndex + direction;
+            return !this.squares[nextIndex].classList.contains('ghost');
+        });
+    
+        // If no safe moves are left, fall back to regular valid moves
+        return valid.length > 0 ? valid : directions.filter(direction => this.isValidDirection(direction));
     }
-
+    
     setScared(scared) {
         this.isScared = scared;
         if (scared) {
@@ -82,7 +82,7 @@ export class Ghost {
         this.squares[this.currentIndex].classList.remove(this.className);
         this.squares[this.currentIndex].classList.remove('scared-ghost');
     
-        const validDirections = this.getValidDirections();
+        let validDirections = this.getValidDirections();
     
         if (validDirections.length > 0) {
             const oppositeDirection = -this.direction;
@@ -90,10 +90,19 @@ export class Ghost {
             const newDirection = forwardDirections.length > 0
                 ? forwardDirections[Math.floor(Math.random() * forwardDirections.length)]
                 : validDirections[Math.floor(Math.random() * validDirections.length)];
-    
+        
+            // Reserve next index
+            const nextIndex = this.currentIndex + newDirection;
+            this.squares[nextIndex].classList.add('reserved');
+        
             this.previousIndex = this.currentIndex;
-            this.currentIndex += newDirection;
+            this.currentIndex = nextIndex;
             this.direction = newDirection;
+        
+            // Remove reservation after moving
+            setTimeout(() => {
+                this.squares[nextIndex].classList.remove('reserved');
+            }, this.speed);
         }
     
         this.squares[this.currentIndex].classList.add(this.className);
