@@ -8,8 +8,8 @@ export class UI {
         this.lives = 3;
         this.startTime = Date.now();
         this.loadBestScore();
-        // Create a game status display element
         this.gameStatusDisplay = document.createElement('div');
+        this.pauseMenu = null;
         this.gameStatusDisplay.style.cssText = `
             position: absolute;
             top: 50%;
@@ -55,25 +55,30 @@ export class UI {
     }
 
     createPauseMenu(gameInstance) {
-        const pauseMenu = document.createElement('div');
-        pauseMenu.className = 'pause-menu';
-    
+        if (this.pauseMenu) {
+            document.body.removeChild(this.pauseMenu);
+            this.pauseMenu = null;
+            return;
+        }
+
+        this.pauseMenu = document.createElement('div');
+        this.pauseMenu.className = 'pause-menu';
+
         const resumeButton = document.createElement('button');
         resumeButton.textContent = 'Resume';
         resumeButton.onclick = () => {
-            document.body.removeChild(pauseMenu);
             gameInstance.togglePause(); // Resume game
         };
-    
+
         const restartButton = document.createElement('button');
         restartButton.textContent = 'Restart';
         restartButton.onclick = () => {
             location.reload();
         };
-    
-        pauseMenu.appendChild(resumeButton);
-        pauseMenu.appendChild(restartButton);
-        document.body.appendChild(pauseMenu);
+
+        this.pauseMenu.appendChild(resumeButton);
+        this.pauseMenu.appendChild(restartButton);
+        document.body.appendChild(this.pauseMenu);
     }
     
 
