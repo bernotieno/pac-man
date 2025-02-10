@@ -44,8 +44,8 @@ export class Pacman {
         // Check basic boundaries
         if (nextIndex < 0 || nextIndex >= this.squares.length) return false;
 
-        // Check for walls
-        if (this.isWall(nextIndex)) return false;
+        // Check for walls and ghost lair
+        if (this.isWall(nextIndex) || this.squares[nextIndex].classList.contains('ghost-lair')) return false;
 
         // Handle horizontal movement
         if (direction === -1 || direction === 1) {
