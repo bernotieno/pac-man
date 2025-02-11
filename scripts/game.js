@@ -129,7 +129,6 @@ export class Game {
                             const gameOverDiv = document.querySelector('.gameover');
                             gameOverDiv.style.display = 'none';
                             this.isPaused = false; // Resume the game
-                            this.moveGhosts(); // Restart ghost movement
                         }, 2000);
                     }
                 }
@@ -146,7 +145,7 @@ export class Game {
         if (this.ui.lives <= 0) {
             this.gameOver = true;
             this.ui.displayGameStatus('GAME OVER');
-            return true;
+            return false;
         }
         
         // Check if all pellets are eaten
