@@ -22,7 +22,6 @@
 		<div class="grid"></div>
 		<div class = "gameover"></div>
 		<h2 id="h2bestScore" style="display: none">Your best score : <span id="bestScore">0</span></h2>
-		<footer id="footer">PAC-MAN™ & ©1980 BANDAI NAMCO Entertainment Inc.</footer>
 
 		<script type="module">
 			import { Game } from './scripts/game.js';
@@ -30,7 +29,6 @@
 			document.getElementById('play').addEventListener('click', function() {
 				this.style.display = 'none';
 				document.getElementById('h2bestScore').style.display = 'block';
-				document.getElementById('footer').style.display = 'none';
 				document.getElementById('mobile').style.display = 'none';
 
 				const game = new Game();
