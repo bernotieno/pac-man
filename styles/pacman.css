@@ -27,8 +27,6 @@
     position: absolute;
     content: "";
     display: block;
-    /* width: 1.75vw;
-    height: 1.75vw; */
     width: 10px;
     height: 10px;
 }
