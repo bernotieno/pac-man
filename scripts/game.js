@@ -8,6 +8,29 @@ import { UI } from './ui.js';
 import { POWER_PELLET_TIME } from './utils.js';
 
 export class Game {
+    static initialize() {
+        const playButton = document.getElementById('play');
+            
+        function startGame() {
+            playButton.style.display = 'none';
+            document.getElementById('h2bestScore').style.display = 'block';
+            document.getElementById('mobile').style.display = 'none';
+
+            const game = new Game();
+            game.start();
+        }
+
+        // Click handler
+        playButton.addEventListener('click', startGame);
+
+        // Enter key handler
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && playButton.style.display !== 'none') {
+                startGame();
+            }
+        });
+    }
+
     constructor() {
         this.board = new Board();
         this.ui = new UI();
@@ -34,8 +57,8 @@ export class Game {
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 this.togglePause();
-            } else if ((e.key === 'Enter') || (e.key === 'Enter' && this.gameOver))  {
-                location.reload(); // Restart the game
+            } else if (e.key === 'Enter' && this.isPaused) {
+                location.reload(); // Restart only when game is paused
             } else {
                 this.pacman.setDirection(e);
             }
@@ -95,8 +118,18 @@ export class Game {
                     this.ui.updateLives(this.ui.lives - 1);
                     if (this.ui.lives === 0) {
                         this.gameOver = true;
+                        this.ui.displayGameStatus('GAME OVER');
                     } else {
                         this.resetPositions();
+                        this.isPaused = true; // Pause the game
+                        this.ui.displayGameStatus('READY');
+                        
+                        // Resume the game after 2 seconds
+                        setTimeout(() => {
+                            const gameOverDiv = document.querySelector('.gameover');
+                            gameOverDiv.style.display = 'none';
+                            this.isPaused = false; // Resume the game
+                        }, 2000);
                     }
                 }
             }
@@ -112,7 +145,7 @@ export class Game {
         if (this.ui.lives <= 0) {
             this.gameOver = true;
             this.ui.displayGameStatus('GAME OVER');
-            return true;
+            return false;
         }
         
         // Check if all pellets are eaten
@@ -150,6 +183,15 @@ export class Game {
     }
 
     start() {
-        requestAnimationFrame(this.update.bind(this));
+        // Show "Ready" message
+        this.ui.displayGameStatus('READY');
+        
+        // Start the game after 3 seconds
+        setTimeout(() => {
+            // Hide the "Ready" message
+            this.ui.hideGameStatus();
+            // Start the game loop
+            requestAnimationFrame(this.update.bind(this));
+        }, 3000);
     }
 }

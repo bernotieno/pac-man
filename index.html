@@ -3,15 +3,15 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Pac-Man</title>
-		<link rel="stylesheet" href="styles.css">
-		<link rel="stylesheet" href="pacman.css">
+		<link rel="stylesheet" href="styles/styles.css">
+		<link rel="stylesheet" href="styles/pacman.css">
 		<link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
 		<script src="https://kit.fontawesome.com/ca42bbbf84.js" crossorigin="anonymous"></script>
 	</head>
 
 	<body>
 		<button id="play">Click here to play</button>
-		<img src="https://upload.wikimedia.org/wikipedia/fr/thumb/a/a2/Pac-Man_Logo.svg/langfr-1920px-Pac-Man_Logo.svg.png" alt="Logo Pac-Man" id="logo">
+		<img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/11a10a01-ac23-4fea-ad5a-b51f53084159/db28cmq-d12c03a7-a182-4bcb-9388-82c6e5c9c866.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzExYTEwYTAxLWFjMjMtNGZlYS1hZDVhLWI1MWY1MzA4NDE1OVwvZGIyOGNtcS1kMTJjMDNhNy1hMTgyLTRiY2ItOTM4OC04MmM2ZTVjOWM4NjYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.pD5v4GSPitoHLBkH9iJfw0CzSBRhYRWVF7Ed1-pHiMo" alt="Logo Pac-Man" id="logo">
 		<div class="score-lives-time-container">
 			<h2>Score: <span id="score">0</span></h2>
 			<h2>Lives: <span id="lives">3</span></h2>
@@ -22,20 +22,10 @@
 		<div class="grid"></div>
 		<div class = "gameover"></div>
 		<h2 id="h2bestScore" style="display: none">Your best score : <span id="bestScore">0</span></h2>
-		<footer id="footer">PAC-MAN™ & ©1980 BANDAI NAMCO Entertainment Inc.</footer>
 
 		<script type="module">
 			import { Game } from './scripts/game.js';
-
-			document.getElementById('play').addEventListener('click', function() {
-				this.style.display = 'none';
-				document.getElementById('h2bestScore').style.display = 'block';
-				document.getElementById('footer').style.display = 'none';
-				document.getElementById('mobile').style.display = 'none';
-
-				const game = new Game();
-				game.start();
-			});
+			Game.initialize();
 		</script>
 	</body>
 </html>
