@@ -57,8 +57,8 @@ export class Game {
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 this.togglePause();
-            } else if ((e.key === 'Enter') || (e.key === 'Enter' && this.gameOver))  {
-                location.reload(); // Restart the game
+            } else if (e.key === 'Enter' && this.isPaused) {
+                location.reload(); // Restart only when game is paused
             } else {
                 this.pacman.setDirection(e);
             }
