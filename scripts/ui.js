@@ -67,7 +67,7 @@ export class UI {
         const resumeButton = document.createElement('button');
         resumeButton.textContent = 'Resume';
         resumeButton.onclick = () => {
-            gameInstance.togglePause(); // Resume game
+            gameInstance.togglePause();
         };
 
         const restartButton = document.createElement('button');
@@ -101,28 +101,24 @@ export class UI {
         // Create and set the status text
         const statusText = document.createElement('div');
         statusText.textContent = status;
-        statusText.style.marginBottom = '20px'; // Add some spacing before the button
+        statusText.style.marginBottom = '20px';
         
         // Append text first
         gameOverDiv.appendChild(statusText);
         
         // For "READY" message, don't show the restart button
         if (status !== 'READY') {
-            // Create the restart button
             const restartButton = document.createElement('button');
             restartButton.textContent = 'Restart';
-            restartButton.classList.add('restart'); // Add the restart class
+            restartButton.classList.add('restart');
             
             // Add click event to restart the game
             restartButton.addEventListener('click', () => {
-                location.reload(); // Reloads the page
+                location.reload();
             });
-            
-            // Append button after the text
             gameOverDiv.appendChild(restartButton);
         }
         
-        // Make the div visible
         gameOverDiv.style.display = 'block';
     }
 
