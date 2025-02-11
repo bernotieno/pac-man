@@ -92,32 +92,43 @@ export class UI {
     }
 
     displayGameStatus(status) {
-    // Select the div with class "gameover"
-    const gameOverDiv = document.querySelector('.gameover');
-    
-    // Clear any existing content
-    gameOverDiv.innerHTML = '';
-    
-    // Create and set the status text
-    const statusText = document.createElement('div');
-    statusText.textContent = status;
-    statusText.style.marginBottom = '20px'; // Add some spacing before the button
-    
-    // Create the restart button
-    const restartButton = document.createElement('button');
-    restartButton.textContent = 'Restart';
-    restartButton.classList.add('restart'); // Add the restart class
-    
-    // Add click event to restart the game
-    restartButton.addEventListener('click', () => {
-        location.reload(); // Reloads the page
-    });
-    
-    // Append text and button to the game over div
-    gameOverDiv.appendChild(statusText);
-    gameOverDiv.appendChild(restartButton);
-    
-    // Make the div visible
-    gameOverDiv.style.display = 'block';
+        // Select the div with class "gameover"
+        const gameOverDiv = document.querySelector('.gameover');
+        
+        // Clear any existing content
+        gameOverDiv.innerHTML = '';
+        
+        // Create and set the status text
+        const statusText = document.createElement('div');
+        statusText.textContent = status;
+        statusText.style.marginBottom = '20px'; // Add some spacing before the button
+        
+        // Append text first
+        gameOverDiv.appendChild(statusText);
+        
+        // For "READY" message, don't show the restart button
+        if (status !== 'READY') {
+            // Create the restart button
+            const restartButton = document.createElement('button');
+            restartButton.textContent = 'Restart';
+            restartButton.classList.add('restart'); // Add the restart class
+            
+            // Add click event to restart the game
+            restartButton.addEventListener('click', () => {
+                location.reload(); // Reloads the page
+            });
+            
+            // Append button after the text
+            gameOverDiv.appendChild(restartButton);
+        }
+        
+        // Make the div visible
+        gameOverDiv.style.display = 'block';
+    }
+
+    hideGameStatus() {
+        const gameOverDiv = document.querySelector('.gameover');
+        gameOverDiv.style.display = 'none';
+        gameOverDiv.innerHTML = '';
     }
 } 
