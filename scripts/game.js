@@ -47,18 +47,11 @@ export class Game {
         this.lastTime = 0;
         this.isPaused = false;
 
-        // document.addEventListener('keydown', (e) => {
-        //     if (e.key === 'Escape') {
-        //         this.togglePause();
-        //     } else {
-        //         this.pacman.setDirection(e);
-        //     }
-        // });
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 this.togglePause();
             } else if (e.key === 'Enter' && this.isPaused) {
-                location.reload(); // Restart only when game is paused
+                location.reload();
             } else {
                 this.pacman.setDirection(e);
             }
@@ -71,14 +64,13 @@ export class Game {
         if (this.isPaused) {
             this.ui.createPauseMenu(this);
         } else {
-            this.ui.createPauseMenu(this); // This will remove the pause menu
-            requestAnimationFrame(this.update.bind(this)); // Resume game loop
+            this.ui.createPauseMenu(this);
+            requestAnimationFrame(this.update.bind(this));
         }
     }
 
     restartGame() {
         if (this.gameOver || this.isPaused) {
-            // Restart game when paused or game over
             this.resetGame();
             this.start();
         }
@@ -121,14 +113,14 @@ export class Game {
                         this.ui.displayGameStatus('GAME OVER');
                     } else {
                         this.resetPositions();
-                        this.isPaused = true; // Pause the game
+                        this.isPaused = true;
                         this.ui.displayGameStatus('READY');
                         
                         // Resume the game after 2 seconds
                         setTimeout(() => {
                             const gameOverDiv = document.querySelector('.gameover');
                             gameOverDiv.style.display = 'none';
-                            this.isPaused = false; // Resume the game
+                            this.isPaused = false;
                         }, 2000);
                     }
                 }
@@ -179,7 +171,7 @@ export class Game {
             }
         }
     
-        requestAnimationFrame(this.update.bind(this)); // Keep running regardless of pause state
+        requestAnimationFrame(this.update.bind(this));
     }
 
     start() {
@@ -188,9 +180,7 @@ export class Game {
         
         // Start the game after 3 seconds
         setTimeout(() => {
-            // Hide the "Ready" message
             this.ui.hideGameStatus();
-            // Start the game loop
             requestAnimationFrame(this.update.bind(this));
         }, 3000);
     }
