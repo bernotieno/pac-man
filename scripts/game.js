@@ -150,6 +150,15 @@ export class Game {
     }
 
     start() {
-        requestAnimationFrame(this.update.bind(this));
+        // Show "Ready" message
+        this.ui.displayGameStatus('READY');
+        
+        // Start the game after 3 seconds
+        setTimeout(() => {
+            // Hide the "Ready" message
+            this.ui.hideGameStatus();
+            // Start the game loop
+            requestAnimationFrame(this.update.bind(this));
+        }, 3000);
     }
 }
