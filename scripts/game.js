@@ -95,8 +95,19 @@ export class Game {
                     this.ui.updateLives(this.ui.lives - 1);
                     if (this.ui.lives === 0) {
                         this.gameOver = true;
+                        this.ui.displayGameStatus('GAME OVER');
                     } else {
                         this.resetPositions();
+                        this.isPaused = true; // Pause the game
+                        this.ui.displayGameStatus('READY');
+                        
+                        // Resume the game after 2 seconds
+                        setTimeout(() => {
+                            const gameOverDiv = document.querySelector('.gameover');
+                            gameOverDiv.style.display = 'none';
+                            this.isPaused = false; // Resume the game
+                            this.moveGhosts(); // Restart ghost movement
+                        }, 2000);
                     }
                 }
             }
