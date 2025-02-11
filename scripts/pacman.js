@@ -6,11 +6,11 @@ export class Pacman {
         this.board = board;
         this.direction = 0;
         this.timeSinceLastMove = 0;
-        this.moveDelay = 200; // ms between moves
+        this.moveDelay = 200;
         this.squares = board.getSquares();
         this.squares[this.currentIndex].classList.add('pac-man');
         this.previousIndex = startIndex;
-        this.rotation = 0; // Initial rotation (right)
+        this.rotation = 0;
         this.updateRotation();
     }
 
@@ -20,7 +20,6 @@ export class Pacman {
 
     updateRotation() {
         const pacmanElement = this.squares[this.currentIndex];
-        // Remove any existing rotation classes
         pacmanElement.classList.remove('rotate-left', 'rotate-right', 'rotate-up', 'rotate-down');
         
         // Add appropriate rotation class based on direction
@@ -44,7 +43,6 @@ export class Pacman {
         // Check basic boundaries
         if (nextIndex < 0 || nextIndex >= this.squares.length) return false;
 
-        // Check for walls and ghost lair
         if (this.isWall(nextIndex) || this.squares[nextIndex].classList.contains('ghost-lair')) return false;
 
         // Handle horizontal movement
