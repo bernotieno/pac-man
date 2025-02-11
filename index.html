@@ -25,15 +25,7 @@
 
 		<script type="module">
 			import { Game } from './scripts/game.js';
-
-			document.getElementById('play').addEventListener('click', function() {
-				this.style.display = 'none';
-				document.getElementById('h2bestScore').style.display = 'block';
-				document.getElementById('mobile').style.display = 'none';
-
-				const game = new Game();
-				game.start();
-			});
+			Game.initialize();
 		</script>
 	</body>
 </html>

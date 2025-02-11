@@ -8,6 +8,29 @@ import { UI } from './ui.js';
 import { POWER_PELLET_TIME } from './utils.js';
 
 export class Game {
+    static initialize() {
+        const playButton = document.getElementById('play');
+            
+        function startGame() {
+            playButton.style.display = 'none';
+            document.getElementById('h2bestScore').style.display = 'block';
+            document.getElementById('mobile').style.display = 'none';
+
+            const game = new Game();
+            game.start();
+        }
+
+        // Click handler
+        playButton.addEventListener('click', startGame);
+
+        // Enter key handler
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && playButton.style.display !== 'none') {
+                startGame();
+            }
+        });
+    }
+
     constructor() {
         this.board = new Board();
         this.ui = new UI();
