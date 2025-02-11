@@ -4,12 +4,10 @@ import { GRID_SIZE } from './utils.js';
 export class Blinky extends Ghost {
     constructor(startIndex, speed, board) {
         super('blinky', startIndex, speed, board);
-        // Cache frequently used values
         this.ghostHouseExit = 348;
         this.isInGhostHouse = true;
-        // Performance optimizations
         this.lastCalculationTime = 0;
-        this.calculationInterval = 16; // ~60fps calculation rate
+        this.calculationInterval = 16;
         this.cachedDirection = null;
         // Directions mapped for quick access
         this.DIRECTIONS = {
@@ -31,7 +29,7 @@ export class Blinky extends Ghost {
     calculateDistance(start, end) {
         // Optimized Manhattan distance calculation
         const startX = start % GRID_SIZE;
-        const startY = start / GRID_SIZE | 0; // Faster than Math.floor
+        const startY = start / GRID_SIZE | 0;
         const endX = end % GRID_SIZE;
         const endY = end / GRID_SIZE | 0;
         
@@ -58,21 +56,18 @@ export class Blinky extends Ghost {
                 continue;
             }
 
-            // Calculate base score using Manhattan distance
             const score = this.calculateDistance(nextIndex, targetIndex) * 10;
             
-            // Apply penalties based on movement rules
             let finalScore = score;
             
             if (!this.isInGhostHouse) {
-                // Apply standard movement penalties
                 if (this.isGhostLair(nextIndex)) {
-                    finalScore += 1000; // Heavy penalty for re-entering ghost house
+                    finalScore += 1000;
                 }
                 if (direction === -this.direction) {
-                    finalScore += 500; // Penalty for reversing direction
+                    finalScore += 500;
                 }
-                // Slight preference for current direction to reduce jitter
+
                 if (direction === this.direction) {
                     finalScore -= 5;
                 }
