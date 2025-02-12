@@ -1,169 +1,113 @@
-# Make-My-Game: Pac-Man
+# make-your-game: Pac-Man
 
-A modern implementation of the classic Pac-Man arcade game built with vanilla JavaScript, featuring smooth animations and responsive design.
+## Overview
+This project is a modern re-creation of the classic Pac-Man arcade game using vanilla JavaScript. It features smooth animations, a responsive design, and a fully functional AI for the four ghosts, each with distinct behaviors.
 
-## 🎮 Demo Features
-
-- Classic Pac-Man gameplay mechanics
-- Four unique ghosts with distinct behaviors
-- Power pellets and ghost vulnerability system
-- Responsive design for both desktop and mobile
-- Score tracking with local storage for high scores
+## Features
+### Gameplay
+- Classic Pac-Man mechanics
+- Four unique ghosts with distinct movement patterns
+- Power pellets that temporarily weaken ghosts
+- Score tracking and local storage for high scores
 - Pause/Resume functionality
-- Lives system
-- Timer tracking
+- Lives system with game-over conditions
+- Timer tracking for gameplay statistics
 
-## 🚀 Technical Features
+### Technical
+- Frame-independent movement using `requestAnimationFrame`
+- Grid-based collision detection system
+- Optimized character movement for smooth transitions
+- AI-driven ghost pathfinding with strategic behaviors
+- Mobile-friendly controls, including touch gestures
+- Performance optimizations using CSS transforms
 
-- Frame-independent movement using requestAnimationFrame
-- Grid-based collision system
-- Smooth character transitions
-- Ghost AI pathfinding (especially for Blinky)
-- Mobile-friendly touch controls
-- Optimized performance with CSS transforms
-
-## 🎯 Game Controls
-
+## Controls
 ### Desktop
-- Arrow keys (←↑→↓) for Pac-Man movement
-- `ESC` - Pause/Resume game
-- `Enter` - Start/Restart game
+- **Arrow Keys**: Move Pac-Man
+- **ESC**: Pause/Resume the game
+- **Enter**: Start/Restart the game
 
-### Mobile
-- Swipe gestures for movement
 
-## 🛠 Technical Implementation
-
+## Technical Implementation
 ### Core Components
-
 1. **Game Engine**
-- Central game loop with requestAnimationFrame
-- State management system
-- Collision detection system
-- Score and lives tracking
-- Event handling for keyboard and touch inputs
-- Timing system for ghost behavior changes
-- Power pellet duration management
+   - Central game loop using `requestAnimationFrame`
+   - State management for different game phases
+   - Collision detection between Pac-Man, ghosts, and objects
+   - Score and lives tracking
+   - Event handling for user inputs
+   - Timed transitions for ghost behavior changes
+   - Power pellet mechanics for temporary ghost vulnerability
 
 2. **Movement System**
-- Frame-independent movement
-- Delta time-based updates
-- Smooth interpolation between grid positions
+   - Frame-independent movement using delta time
+   - Smooth interpolation between grid positions
 
 3. **Ghost AI**
-- Unique behavior patterns for each ghost:
-  - Blinky: Direct chase using shortest path
-  - Pinky: Ambush by targeting ahead of Pac-Man
-  - Inky: Complex targeting using Blinky's position
-  - Clyde: Random movement when far, chase when close
-- State machine for ghost behavior modes
-- Pathfinding algorithm for intelligent movement
-- Scatter and Chase mode alternation
-- Frightened mode behavior when power pellets are active
+   - Unique movement strategies:
+     - **Blinky**: Direct pursuit using shortest path
+     - **Pinky**, **Inky** &  **Clyde**: Mixed random and pursuit behavior
+   - State-based AI transitions (Chase, Scatter, Frightened)
+   - Intelligent pathfinding algorithms
+   - Mode switching for more dynamic gameplay
 
-## 🏗 Project Structure
 
-```
-make-my-game/
-├── index.html
-├── styles/
-│   ├── styles.css
-│   └── pacman.css
-└── scripts/
-    ├── game.js
-    ├── pacman.js
-    ├── ghost-base.js
-    ├── blinky.js
-    ├── pinky.js
-    ├── inky.js
-    ├── clyde.js
-    ├── board.js
-    ├── ui.js
-    └── utils.js
-```
-
-## 🎨 Visual Features
-
+## Visual & UI Features
 - Classic Pac-Man character design
-- Ghost animations with scared state
-- Responsive grid layout
-- Mobile-optimized interface
-- Smooth rotation animations for Pac-Man
+- Scared ghost state with visual indication
+- Fully responsive layout for different screen sizes
 
-## 💻 Technical Requirements
+## Performance Optimizations
+- Efficient rendering using CSS transforms
+- Throttled pathfinding calculations for AI
+- Optimized collision detection
+- Frame-independent movement for smooth experience
 
-- Modern web browser with JavaScript enabled
-- Support for CSS transforms and transitions
-- Touch support for mobile devices
-
-## 🔧 Performance Optimizations
-
-- CSS transform-based animations
-- Throttled pathfinding calculations
-- Efficient collision detection
-- Optimized ghost movement algorithms
-- Frame-independent movement system
-
-## 🎯 Future Improvements
-
-- Additional ghost AI patterns
+## Future Enhancements
+- Additional ghost AI patterns for increased difficulty
 - Sound effects and background music
-- Multiple levels with increasing difficulty
-- Additional power-ups
+- Multiple levels with increasing challenges
+- New power-ups for varied gameplay
 - Online leaderboard system
+- Ghost AI for all the ghosts
 
-## 📱 Mobile Support
+## Game States
+- **Ready**: Initial game setup
+- **Playing**: Active gameplay
+- **Paused**: Game paused with menu overlay
+- **Power Pellet Mode**: Temporary ghost vulnerability
+- **Death**: Pac-Man loses a life with an animation sequence
+- **Game Over**: Final score display with restart option
+- **Win**: Level completion with celebration animation
 
-The game is fully responsive and supports:
-- Touch controls
-- Adaptive grid sizing
-- Mobile-optimized UI elements
-- Gesture-based controls
+## Scoring System
+- **Pac-Dots**: 10 points
+- **Power Pellets**: 50 points
+- **Ghost Capture (while frightened)**: 200 points
+- **High Score Tracking**: Saved using `localStorage`
 
-## 🔄 Game States
-
-- Ready State: Initial game setup and countdown
-- Playing State: Active gameplay with all mechanics
-- Paused State: Game frozen with overlay menu
-- Power Pellet State: Special ghost behavior mode
-- Death State: Pac-Man death animation sequence
-- Game Over State: Final score display and restart option
-- Win State: Level completion celebration
-
-## 🏆 Scoring System
-
-- Pac-Dots: 10 points
-- Power Pellets: 50 points
-- Ghost catches (while scared): 200 points
-- High score tracking via localStorage
-
-## 🎮 Getting Started
-
+## Getting Started
 1. Clone the repository:
-```bash
-git clone https://github.com/bernotieno/pac-man.git
-```
-
+   ```bash
+   git clone https://github.com/bernotieno/pac-man.git
+   ```
 2. Navigate to the project directory:
-```bash
-cd pac-man
-```
+   ```bash
+   cd pac-man
+   ```
+3. Open `index.html` in a modern web browser.
+4. Press **Enter** or click "Play" to start.
+5. Use **arrow keys** (desktop) or **swipe gestures** (mobile) to move Pac-Man.
+6. Collect all dots while avoiding ghosts to win.
 
-3. Open `index.html` in a modern web browser
-4. Click "Play" or press Enter to start
-5. Use arrow keys (desktop) or swipe (mobile) to control Pac-Man
-6. Collect all dots while avoiding ghosts to win
+Alternatively, download the [ZIP file](https://github.com/bernotieno/pac-man/archive/refs/heads/main.zip) from GitHub.
 
-You can also [download the ZIP file](https://github.com/bernotieno/pac-man/archive/refs/heads/main.zip) directly from GitHub.
+## Development Guidelines
+- All game logic is modular and located in the `scripts` directory.
+- CSS styles can be modified in the `styles` directory.
+- Ghost behaviors can be customized in individual ghost class files.
+- Board layouts and game settings can be modified in `utils.js`.
 
-## 🔧 Development
+## License
+This project is open-source and licensed under the **MIT License**.
 
-To modify or enhance the game:
-1. All game logic is modular and contained in the `scripts` directory
-2. Styles can be modified in the `styles` directory
-3. Ghost behaviors can be customized in individual ghost class files
-4. Board layout can be modified in the `utils.js` configuration
-
-## 📄 License
-
-This project is open source and available under the MIT License.
