@@ -60,6 +60,10 @@ export class Game {
     }
 
     togglePause() {
+
+        if (this.gameOver || this.checkWin) {
+            return;
+        }
         this.isPaused = !this.isPaused;
         if (this.isPaused) {
             this.ui.createPauseMenu(this);
