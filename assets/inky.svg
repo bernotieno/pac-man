@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Ghost Body -->
+  <path d="M 85,50 
+           A 35,35 0 0 0 15,50 
+           L 15,85 
+           Q 22,72 29,85 
+           Q 36,98 43,85 
+           Q 50,72 57,85 
+           Q 64,98 71,85 
+           Q 78,72 85,85 
+           L 85,50 Z" 
+        fill="#00FFFF"/>
+  
+  <!-- Eyes (positioned to look right) -->
+  <g class="eyes">
+    <!-- Left Eye White -->
+    <ellipse cx="35" cy="45" rx="8" ry="10" fill="white"/>
+    <!-- Right Eye White -->
+    <ellipse cx="65" cy="45" rx="8" ry="10" fill="white"/>
+    
+    <!-- Left Eye Pupil (looking right) -->
+    <circle cx="39" cy="45" r="4" fill="#0000FF"/>
+    <!-- Right Eye Pupil (looking right) -->
+    <circle cx="69" cy="45" r="4" fill="#0000FF"/>
+  </g>
+</svg> 

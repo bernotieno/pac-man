@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- Ghost body -->
+  <path fill="#2121DE" d="M12,2 C7.581722,2 4,5.581722 4,10 L4,18 C4,18 4.5,21 6,21 C7.5,21 8,18 8,18 L10,18 C10,18 10.5,21 12,21 C13.5,21 14,18 14,18 L16,18 C16,18 16.5,21 18,21 C19.5,21 20,18 20,18 L20,10 C20,5.581722 16.418278,2 12,2 Z"/>
+  
+  <!-- Left eye -->
+  <circle fill="white" cx="9" cy="10" r="2"/>
+  <circle fill="#2121DE" cx="9" cy="10" r="1"/>
+  
+  <!-- Right eye -->
+  <circle fill="white" cx="15" cy="10" r="2"/>
+  <circle fill="#2121DE" cx="15" cy="10" r="1"/>
+</svg> 
